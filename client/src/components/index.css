@@ -11,32 +11,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-.button {
-  background-color: rgb(255, 245, 245);
-  overflow: hidden;
-}
-
-/* Style the links inside the navigation bar */
-.button a {
-  float: left;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-/* Change the color of links on hover */
-.button a:hover {
-  background-color: #ddd;
-  color: rgb(226, 223, 177);
-}
-
-/* Add a color to the active/current link */
-.button a.active {
-  background-color: #04aa6d;
-  color: white;
-}
 
 .body {
   padding-left: 10px;
@@ -45,4 +19,32 @@ code {
 
 .bodyheader {
   color: rgb(0, 128, 170);
+}
+
+.topnav {
+  background-color: rgb(46, 93, 163);
+  overflow: hidden;
+  font-weight: bold;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #ffffff;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: rgb(226, 223, 177);
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #04aa6d;
+  color: white;
 }
