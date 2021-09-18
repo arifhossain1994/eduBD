@@ -15,7 +15,13 @@ ReactDOM.render(
   rootElement
 );
 
-function SuperAdmin() {
+function getUsers() {
+  fetch(`/api/users`)
+    .then((response) => response.json())
+    .then((users) => console.log(users));
+}
+
+export default function superadmin() {
   return (
     <div class="body">
       <header class="SuperAdminHeader">
@@ -26,12 +32,11 @@ function SuperAdmin() {
         <a href="#Manage User">Manage User</a>
         <a href="#Manage Institution">Manage Institution</a>
         <Link to="homepage">
-          <button>EDUBD Homepage</button>
+          <button class="button">EDUBD Homepage</button>
         </Link>
         <a href="#login">Login</a>
       </p>
+      <p>{getUsers}</p>
     </div>
   );
 }
-
-export default SuperAdmin;

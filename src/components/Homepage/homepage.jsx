@@ -2,7 +2,7 @@ import React from "react";
 import "../../index.css";
 import "./homepage.css";
 
-function Homepage() {
+export default function Homepage() {
   return (
     <div class="body">
       <header class="bodyheader">
@@ -16,5 +16,3 @@ function Homepage() {
     </div>
   );
 }
-
-export default Homepage;
