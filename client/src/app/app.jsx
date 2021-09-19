@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Homepage from "../components/Homepage/homepage";
 import manageInstitution from "../components/superadmin/manageInstitution";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(

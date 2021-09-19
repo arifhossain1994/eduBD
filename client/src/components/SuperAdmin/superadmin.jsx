@@ -1,6 +1,7 @@
 import React from "react";
-import "../index.css";
+//import "../index.css";
 import { Link } from "react-router-dom";
+import { Button } from "reactstrap";
 
 export default function superadmin() {
   return (
@@ -12,10 +13,10 @@ export default function superadmin() {
       <p class="topnav">
         <a href="#Manage User">Manage User</a>
         <Link to="manageInstitution">
-          <button class="button">Manage Institution</button>
+          <Button class="button">Manage Institution</Button>
         </Link>
         <Link to="homepage">
-          <button class="button">EDUBD Homepage</button>
+          <Button class="button">EDUBD Homepage</Button>
         </Link>
         <a href="#login">Login</a>
       </p>
