@@ -2,9 +2,9 @@ const express = require("express");
 const app = express();
 
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.json({message:"Hello World"});
 });
 
-app.listen(3001, () => {
-  console.log("running on port 3001");
+app.listen(8000, () => {
+  console.log("running on port 8000");
 });

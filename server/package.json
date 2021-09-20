@@ -4,17 +4,21 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node server.js",
     "devStart": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
-    
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1",
-    "mysql": "^2.18.1",
-    "nodemon": "^2.0.12"
+    "body-parser": "1.19.0",
+    "browser-sync": "^2.27.5",
+    "cors": "^2.8.5",
+    "express": "4.17.1",
+    "mysql": "2.18.1",
+    "nodemon": "2.0.12",
+    "pouchdb-adapter-idb": "7.2.2",
+    "rxdb": "^8.2.1",
+    "sequelize": "6.6.5"
   }
 }

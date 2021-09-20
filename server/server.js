@@ -1,27 +1,23 @@
 const express = require("express");
-const mysql = require("mysql");
+const cors = require("cors");
+const db = require("./config/db.config");
 
 const app = express();
 const port = 8000;
-const table = "users";
+const table = "eduearth.institution";
 
-const pool = mysql.createPool({
-  host: process.env.MYSQL_HOST,
-  user: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PWD,
-  database: process.env.MYSQL_DB,
+app.use(cors());
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  db.query(`SELECT * FROM ${table};`, (err, result) => {
+    if (err) {
+      res.send(err);
+    }
+    res.send(result);
+  });
 });
 
 app.listen(port, () => {
   console.log(`App server now listening to port ${port}`);
-});
-
-app.get("/api/users", (req, res) => {
-  pool.query(`select * from ${table}`, (err, rows) => {
-    if (err) {
-      res.send(err);
-    } else {
-      res.send(rows);
-    }
-  });
 });
