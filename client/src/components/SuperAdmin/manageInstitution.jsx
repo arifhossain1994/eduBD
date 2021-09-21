@@ -23,7 +23,7 @@ class addNewInstitution extends React.Component {
       institutionphone: this.state.institutionphone,
     };
 
-    fetch("http://localhost:3000/manageInstitution", {
+    fetch("/manageInstitution", {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
@@ -43,10 +43,10 @@ class addNewInstitution extends React.Component {
     return (
       <div class="body">
         <header class="bodyheader">
-          <h1>EDUBD</h1>
+          <h1>EDUEARTH</h1>
         </header>
-        <p>Super Admin View</p>
-        <p>Add New Institution</p>
+        <h4>Super Admin View</h4>
+        <h6>Add New Institution</h6>
 
         {/* for the form, you will need the name tag in the inputs. that's how this.state.### works at the top */}
 
@@ -81,12 +81,16 @@ class addNewInstitution extends React.Component {
           <input type="submit" value="Submit" />
         </form>
 
+        <br></br>
         <table class="table">
-          <tr>
-            <td>Institution Name</td>
-            <td>Address</td>
-            <td>Phone</td>
-          </tr>
+          <thead>
+            <tr>
+              <td>Institution Name</td>
+              <td>Address</td>
+              <td>Phone</td>
+            </tr>
+          </thead>
+          <tbody></tbody>
         </table>
       </div>
     );

@@ -7,9 +7,9 @@ export default function superadmin() {
   return (
     <div class="body">
       <header class="bodyheader">
-        <h1>EDUBD</h1>
+        <h1>EDUEARTH</h1>
       </header>
-      <p>Super Admin View</p>
+      <h2>Super Admin View</h2>
       <p class="topnav">
         <a href="#Manage User">Manage User</a>
         <Link to="manageInstitution">
