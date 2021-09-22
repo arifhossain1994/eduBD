@@ -18,7 +18,11 @@
     "mysql": "2.18.1",
     "nodemon": "2.0.12",
     "pouchdb-adapter-idb": "7.2.2",
-    "rxdb": "^8.2.1",
+    "rxdb": "^10.0.3",
     "sequelize": "6.6.5"
+  },
+  "devDependencies": {
+    "http-server": "13.0.2",
+    "opener": "1.5.2"
   }
 }
