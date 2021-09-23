@@ -1,17 +1,26 @@
 import React from "react";
 import "../index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Button, Form } from "react-bootstrap";
 
 class addNewInstitution extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       institutionname: {},
       institutionaddress: {},
       institutionphone: {},
+      allData: [],
     };
     this.onSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    fetch("/manageInstitution")
+      .then((res) => res.json())
+      .then((data) => this.setState({ allData: data }))
+      .then(console.log(this.state.allData));
   }
 
   handleSubmit(event) {
@@ -31,6 +40,8 @@ class addNewInstitution extends React.Component {
       .then((res) => res.json())
       .catch((error) => console.error("Error: ", error))
       .then((response) => console.log("Success: ", response));
+
+    window.location.reload(false);
   }
 
   handleChange = (e) => {
@@ -40,9 +51,10 @@ class addNewInstitution extends React.Component {
   };
 
   render() {
+    const { allData } = this.state;
     return (
-      <div class="body">
-        <header class="bodyheader">
+      <div className="body">
+        <header className="bodyheader">
           <h1>EDUEARTH</h1>
         </header>
         <h4>Super Admin View</h4>
@@ -50,47 +62,73 @@ class addNewInstitution extends React.Component {
 
         {/* for the form, you will need the name tag in the inputs. that's how this.state.### works at the top */}
 
-        <form class="form" onSubmit={this.onSubmit}>
-          <label htmlFor="institutionname">
-            Institution Name:
-            <input
-              id="institutionname"
+        <Form
+          class="row g-3 needs-validation"
+          onSubmit={this.onSubmit}
+          noValidate
+        >
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="institutionname">Institution Name:</Form.Label>
+            <Form.Control
+              type="text"
               name="institutionname"
-              type="text"
+              placeholder="Enter Institution Name"
               onChange={this.handleChange}
+              required
             />
-          </label>
-          <label htmlFor="institutionaddress">
-            Address:
-            <input
-              id="institutionaddress"
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="institutionaddress">
+              Institution Address:
+            </Form.Label>
+            <Form.Control
+              type="text"
               name="institutionaddress"
-              type="text"
+              placeholder="Enter Institution Address"
               onChange={this.handleChange}
+              required
             />
-          </label>
-          <label htmlFor="institutionphone">
-            Phone:
-            <input
-              id="institutionphone"
-              name="institutionphone"
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="institutionphone">
+              Institution Phone:
+            </Form.Label>
+            <Form.Control
               type="tel"
+              name="institutionphone"
+              placeholder="i.e 01911223344"
               onChange={this.handleChange}
+              pattern="[0-9]{11}"
+              required
             />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </Form>
 
         <br></br>
-        <table class="table">
+        <table className="table">
           <thead>
             <tr>
+              <td>ID</td>
               <td>Institution Name</td>
               <td>Address</td>
               <td>Phone</td>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            {allData.map((i) => (
+              <tr key={i.id}>
+                <td>{i.id}</td>
+                <td>{i.institutionname}</td>
+                <td>{i.institutionaddress}</td>
+                <td>{i.institutionphone}</td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     );
