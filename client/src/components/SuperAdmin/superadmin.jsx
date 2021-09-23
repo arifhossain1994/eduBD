@@ -1,15 +1,12 @@
 import React from "react";
-//import "../index.css";
 import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
+import "../index.css";
 
 export default function superadmin() {
   return (
     <div class="body">
-      <header class="bodyheader">
-        <h1>EDUEARTH</h1>
-      </header>
-      <h2>Super Admin View</h2>
+      <h4>Super Admin View</h4>
       <p class="topnav">
         <a href="#Manage User">Manage User</a>
         <Link to="manageInstitution">

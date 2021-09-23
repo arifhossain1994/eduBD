@@ -1,16 +1,16 @@
 import React from "react";
 import "../index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Form, Table } from "react-bootstrap";
+import { Button, Form, Table, Modal } from "react-bootstrap";
 
 class addNewInstitution extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      institutionname: {},
-      institutionaddress: {},
-      institutionphone: {},
+      institutionName: {},
+      institutionAddress: {},
+      institutionPhone: {},
       allData: [],
     };
     this.onSubmit = this.handleSubmit.bind(this);
@@ -27,9 +27,9 @@ class addNewInstitution extends React.Component {
     event.preventDefault();
 
     const data = {
-      institutionname: this.state.institutionname,
-      institutionaddress: this.state.institutionaddress,
-      institutionphone: this.state.institutionphone,
+      institutionName: this.state.institutionname,
+      institutionAddress: this.state.institutionaddress,
+      institutionPhone: this.state.institutionphone,
     };
 
     fetch("/manageInstitution", {
@@ -50,61 +50,99 @@ class addNewInstitution extends React.Component {
     });
   };
 
+  handleModalShowHide() {
+    this.setState({ showHide: !this.state.showHide });
+  }
+
   render() {
     const { allData } = this.state;
     return (
       <div className="body">
-        <header className="bodyheader">
-          <h1>EDUEARTH</h1>
-        </header>
         <h4>Super Admin View</h4>
-        <h6>Add New Institution</h6>
 
-        {/* for the form, you will need the name tag in the inputs. that's how this.state.### works at the top */}
-
-        <Form className="col-lg-6 offset-lg-3 " onSubmit={this.onSubmit}>
-          <Form.Group className="mb-3">
-            <Form.Label htmlFor="institutionname">Institution Name:</Form.Label>
-            <Form.Control
-              type="text"
-              name="institutionname"
-              placeholder="Enter Institution Name"
-              onChange={this.handleChange}
-              required
-            />
-          </Form.Group>
-
-          <Form.Group className="mb-3">
-            <Form.Label htmlFor="institutionaddress">
-              Institution Address:
-            </Form.Label>
-            <Form.Control
-              type="text"
-              name="institutionaddress"
-              placeholder="Enter Institution Address"
-              onChange={this.handleChange}
-              required
-            />
-          </Form.Group>
-
-          <Form.Group className="mb-3">
-            <Form.Label htmlFor="institutionphone">
-              Institution Phone:
-            </Form.Label>
-            <Form.Control
-              type="tel"
-              name="institutionphone"
-              placeholder="i.e 01911223344"
-              onChange={this.handleChange}
-              pattern="[0-9]{11}"
-              required
-            />
-          </Form.Group>
-          <Button className="btn btn-primary" type="submit">
-            Submit
+        <div>
+          <Button variant="primary" onClick={() => this.handleModalShowHide()}>
+            Add New Institution
           </Button>
-        </Form>
 
+          <Modal
+            aria-labelledby="contained-modal-title-vcenter"
+            show={this.state.showHide}
+          >
+            <Modal.Header
+              closeButton
+              onClick={() => this.handleModalShowHide()}
+            >
+              <Modal.Title id="contained-modal-title-vcenter">
+                <h5>Add New Institution</h5>
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form className="col-lg-6 offset-lg-3">
+                <Form.Group className="mb-3">
+                  <Form.Label htmlFor="institutionName">
+                    Institution Name:
+                  </Form.Label>
+                  <Form.Control
+                    type="text"
+                    size="sm"
+                    name="institutionName"
+                    placeholder="Enter Institution Name"
+                    onChange={this.handleChange}
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                  <Form.Label htmlFor="institutionAddress">
+                    Institution Address:
+                  </Form.Label>
+                  <Form.Control
+                    type="text"
+                    size="sm"
+                    name="institutionAddress"
+                    placeholder="Enter Institution Address"
+                    onChange={this.handleChange}
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                  <Form.Label htmlFor="institutionPhone">
+                    Institution Phone:
+                  </Form.Label>
+                  <Form.Control
+                    type="tel"
+                    size="sm"
+                    name="institutionPhone"
+                    placeholder="i.e 01911223344"
+                    onChange={this.handleChange}
+                    pattern="[0-9]{3}"
+                    required
+                  />
+                </Form.Group>
+              </Form>
+              <Modal.Footer>
+                <Button
+                  variant="secondary"
+                  onClick={() => this.handleModalShowHide()}
+                >
+                  Close
+                </Button>
+                {"  "}
+                <Button
+                  className="btn btn-primary"
+                  type="submit"
+                  onClick={this.onSubmit}
+                >
+                  Submit
+                </Button>
+              </Modal.Footer>
+            </Modal.Body>
+          </Modal>
+        </div>
+
+        <br />
         <div>
           <Table striped bordered hover>
             <thead>
@@ -120,9 +158,9 @@ class addNewInstitution extends React.Component {
               {allData.map((i) => (
                 <tr key={i.id}>
                   <td>{i.id}</td>
-                  <td>{i.institutionname}</td>
-                  <td>{i.institutionaddress}</td>
-                  <td>{i.institutionphone}</td>
+                  <td>{i.institutionName}</td>
+                  <td>{i.institutionAddress}</td>
+                  <td>{i.institutionPhone}</td>
                   <td>
                     <Button className="btn btn-primary" type="submit">
                       Update

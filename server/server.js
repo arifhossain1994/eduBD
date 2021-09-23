@@ -43,7 +43,7 @@ app.post("/manageInstitution", function (req, res) {
   const institutionphone = req.body.institutionphone;
 
   db.query(
-    `insert into ${database}.${institutiontable} set institutionname = ?, instituitionaddress = ?, institutionphone = ?`,
+    `insert into ${database}.${institutiontable} set institutionName = ?, institutionAddress = ?, institutionPhone = ?`,
     [institutionname, institutionaddress, institutionphone],
     function (err, result) {
       console.log(institutionname);
