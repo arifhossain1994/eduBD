@@ -1,7 +1,7 @@
 import React from "react";
 import "../index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Table } from "react-bootstrap";
 
 class addNewInstitution extends React.Component {
   constructor(props) {
@@ -62,11 +62,7 @@ class addNewInstitution extends React.Component {
 
         {/* for the form, you will need the name tag in the inputs. that's how this.state.### works at the top */}
 
-        <Form
-          class="row g-3 needs-validation"
-          onSubmit={this.onSubmit}
-          noValidate
-        >
+        <Form className="col-lg-6 offset-lg-3 " onSubmit={this.onSubmit}>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="institutionname">Institution Name:</Form.Label>
             <Form.Control
@@ -104,32 +100,43 @@ class addNewInstitution extends React.Component {
               required
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button className="btn btn-primary" type="submit">
             Submit
           </Button>
         </Form>
 
-        <br></br>
-        <table className="table">
-          <thead>
-            <tr>
-              <td>ID</td>
-              <td>Institution Name</td>
-              <td>Address</td>
-              <td>Phone</td>
-            </tr>
-          </thead>
-          <tbody>
-            {allData.map((i) => (
-              <tr key={i.id}>
-                <td>{i.id}</td>
-                <td>{i.institutionname}</td>
-                <td>{i.institutionaddress}</td>
-                <td>{i.institutionphone}</td>
+        <div>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <td>ID</td>
+                <td>Institution Name</td>
+                <td>Address</td>
+                <td>Phone</td>
+                <td>Action</td>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {allData.map((i) => (
+                <tr key={i.id}>
+                  <td>{i.id}</td>
+                  <td>{i.institutionname}</td>
+                  <td>{i.institutionaddress}</td>
+                  <td>{i.institutionphone}</td>
+                  <td>
+                    <Button className="btn btn-primary" type="submit">
+                      Update
+                    </Button>
+                    {"  "}
+                    <Button variant="outline-danger" type="submit">
+                      Disable
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
       </div>
     );
   }
