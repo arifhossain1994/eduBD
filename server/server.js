@@ -38,15 +38,14 @@ app.get("/", (req, res) => {
 });
 
 app.post("/manageInstitution", function (req, res) {
-  const institutionname = req.body.institutionname;
-  const institutionaddress = req.body.institutionaddress;
-  const institutionphone = req.body.institutionphone;
-
+  const institutionName = req.body.institutionName;
+  const institutionAddress = req.body.institutionAddress;
+  const institutionPhone = req.body.institutionPhone;
   db.query(
     `insert into ${database}.${institutiontable} set institutionName = ?, institutionAddress = ?, institutionPhone = ?`,
-    [institutionname, institutionaddress, institutionphone],
+    [institutionName, institutionAddress, institutionPhone],
     function (err, result) {
-      console.log(institutionname);
+      console.log(institutionName);
       if (err) console.log(err);
       res.send("Successfully added institution");
     }

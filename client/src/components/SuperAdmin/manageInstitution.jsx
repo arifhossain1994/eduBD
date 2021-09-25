@@ -8,14 +8,16 @@ class addNewInstitution extends React.Component {
     super(props);
 
     this.state = {
-      institutionName: {},
-      institutionAddress: {},
-      institutionPhone: {},
+      institutionName: "",
+      institutionAddress: "",
+      institutionPhone: "",
       allData: [],
+      showHide: false,
     };
-    this.onSubmit = this.handleSubmit.bind(this);
+    this.onFormSubmit = this.handleSubmit.bind(this);
   }
 
+  // This will call the api and get the data
   componentDidMount() {
     fetch("/manageInstitution")
       .then((res) => res.json())
@@ -23,13 +25,13 @@ class addNewInstitution extends React.Component {
       .then(console.log(this.state.allData));
   }
 
+  // This will POST the data to db based on the query
   handleSubmit(event) {
     event.preventDefault();
-
     const data = {
-      institutionName: this.state.institutionname,
-      institutionAddress: this.state.institutionaddress,
-      institutionPhone: this.state.institutionphone,
+      institutionName: this.state.institutionName,
+      institutionAddress: this.state.institutionAddress,
+      institutionPhone: this.state.institutionPhone,
     };
 
     fetch("/manageInstitution", {
@@ -44,12 +46,14 @@ class addNewInstitution extends React.Component {
     window.location.reload(false);
   }
 
-  handleChange = (e) => {
+  // This will record any change in the new institute form.
+  handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value.trim(),
     });
-  };
+  }
 
+  // This will help to open or close the modal
   handleModalShowHide() {
     this.setState({ showHide: !this.state.showHide });
   }
@@ -65,10 +69,7 @@ class addNewInstitution extends React.Component {
             Add New Institution
           </Button>
 
-          <Modal
-            aria-labelledby="contained-modal-title-vcenter"
-            show={this.state.showHide}
-          >
+          <Modal show={this.state.showHide}>
             <Modal.Header
               closeButton
               onClick={() => this.handleModalShowHide()}
@@ -88,8 +89,8 @@ class addNewInstitution extends React.Component {
                     size="sm"
                     name="institutionName"
                     placeholder="Enter Institution Name"
-                    onChange={this.handleChange}
                     required
+                    onChange={(e) => this.handleChange(e)}
                   />
                 </Form.Group>
 
@@ -102,7 +103,7 @@ class addNewInstitution extends React.Component {
                     size="sm"
                     name="institutionAddress"
                     placeholder="Enter Institution Address"
-                    onChange={this.handleChange}
+                    onChange={(e) => this.handleChange(e)}
                     required
                   />
                 </Form.Group>
@@ -116,8 +117,8 @@ class addNewInstitution extends React.Component {
                     size="sm"
                     name="institutionPhone"
                     placeholder="i.e 01911223344"
-                    onChange={this.handleChange}
                     pattern="[0-9]{3}"
+                    onChange={(e) => this.handleChange(e)}
                     required
                   />
                 </Form.Group>
@@ -133,7 +134,7 @@ class addNewInstitution extends React.Component {
                 <Button
                   className="btn btn-primary"
                   type="submit"
-                  onClick={this.onSubmit}
+                  onClick={(e) => this.onFormSubmit(e)}
                 >
                   Submit
                 </Button>
