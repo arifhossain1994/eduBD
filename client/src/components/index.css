@@ -5,6 +5,7 @@ body {
     "Helvetica Neue" sans-serif, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #172b4d !important;
 }
 
 code {
@@ -15,12 +16,29 @@ code {
 .body {
   padding-left: 10px;
   padding-right: 10px;
+  color: #172b4d !important;
 }
 
-.color-nav {
+.navbar {
   background-color: #104a7e;
+  font-weight: bold;
+  padding: 1rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
-.navbar-light .navbar-brand {
+.navbar-brand {
   color: white;
+}
+
+.btn-secondary {
+  background-color: #42526e !important;
+}
+.btn-primary {
+  background-color: #42526e !important;
+}
+
+.brand-logo {
+  display: inline-flex !important;
 }

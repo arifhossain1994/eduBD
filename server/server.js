@@ -16,14 +16,22 @@ app.use(
   })
 );
 
+// Create db Tables if not exists
 db.connect(function (err) {
   if (err) throw err;
   console.log("Connected!");
   db.query(
-    `create table if not exists ${database}.${userstable} (id bigint(8) primary key auto_increment,  name varchar(255) not null )`,
+    `create table if not exists ${database}.${userstable} (id bigint(8) primary key auto_increment,  name varchar(255) not null, email varchar(255) not null )`,
     function (err, result) {
       if (err) throw err;
       console.log("Table created : eduearth.users");
+    }
+  );
+  db.query(
+    `create table if not exists ${database}.${institutiontable} (id bigint(8) primary key auto_increment,  institutionName varchar(255) not null, institutionAddress varchar(255) not null, institutionPhone varchar(20) not null,isActive boolean)`,
+    function (err, result) {
+      if (err) throw err;
+      console.log("Table created : eduearth.institution");
     }
   );
 });
@@ -51,7 +59,7 @@ app.post("/manageInstitution", function (req, res) {
     }
   );
 });
-
+// Get all from institution table
 app.get("/manageInstitution", (req, res) => {
   db.query(`select * from ${database}.${institutiontable};`, (err, result) => {
     if (err) {
@@ -60,6 +68,17 @@ app.get("/manageInstitution", (req, res) => {
     res.send(result);
   });
 });
+
+app.get("/manageInstitution/id=${id}", (req, res) => {
+  db.query(`select * from ${database}.${institutiontable} where id = ${id};`, (err, result) => {
+    if (err) {
+      res.send(err);
+    }
+    res.send(result);
+  });
+});
+
+
 
 app.listen(port, () => {
   console.log(`App server now listening to port ${port}`);

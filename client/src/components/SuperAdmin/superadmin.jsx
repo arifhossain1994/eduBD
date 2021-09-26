@@ -8,14 +8,15 @@ export default function superadmin() {
     <div class="body">
       <h4>Super Admin View</h4>
       <p class="topnav">
-        <a href="#Manage User">Manage User</a>
+        <Link to="#">
+          <Button className="btn-secondary">Manage User</Button>
+        </Link>{" "}
         <Link to="manageInstitution">
-          <Button class="button">Manage Institution</Button>
-        </Link>
+          <Button className="btn-secondary">Manage Institution</Button>
+        </Link>{" "}
         <Link to="homepage">
-          <Button class="button">EDUBD Homepage</Button>
+          <Button className="button">EDUBD Homepage</Button>
         </Link>
-        <a href="#login">Login</a>
       </p>
     </div>
   );
