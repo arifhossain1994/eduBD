@@ -13,18 +13,20 @@ class addNewInstitution extends React.Component {
       institutionAddress: "",
       institutionPhone: "",
       allData: [],
-      showHide: false,
+      showHideInstitutionAdd: false,
+      showHideInstitutionUpdate: false,
       institutionId: null,
+      institutionDataWithID: {},
     };
     this.onFormSubmit = this.handleSubmit.bind(this);
+    this.onFormSubmitUpdate = this.handleSubmitUpdate.bind(this);
   }
 
   // This will call the api and get the data
   componentDidMount() {
     fetch("/manageInstitution")
       .then((res) => res.json())
-      .then((data) => this.setState({ allData: data }))
-      .then(console.log(this.state.allData));
+      .then((data) => this.setState({ allData: data }));
   }
 
   // This will POST the data to db based on the query
@@ -48,6 +50,28 @@ class addNewInstitution extends React.Component {
     window.location.reload(false);
   }
 
+  // This will PUT for update institution
+  handleSubmitUpdate(event) {
+    event.preventDefault();
+    const data = {
+      institutionName: this.state.institutionName,
+      institutionAddress: this.state.institutionAddress,
+      institutionPhone: this.state.institutionPhone,
+      id: this.state.institutionDataWithID.id,
+    };
+
+    fetch("/manageInstitution/update?", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .catch((error) => console.error("Error: ", error))
+      .then((response) => console.log("Success: ", response));
+
+    window.location.reload(false);
+  }
+
   // This will record any change in the new institute form.
   handleChange(e) {
     this.setState({
@@ -55,9 +79,11 @@ class addNewInstitution extends React.Component {
     });
   }
 
-  // This will help to open or close the modal
+  // This will help to open or close the modal to Add
   handleModalShowHide() {
-    this.setState({ showHide: !this.state.showHide });
+    this.setState({
+      showHideInstitutionAdd: !this.state.showHideInstitutionAdd,
+    });
   }
 
   InstitutionAddForm = () => {
@@ -67,7 +93,7 @@ class addNewInstitution extends React.Component {
           Add New Institution
         </Button>
 
-        <Modal show={this.state.showHide}>
+        <Modal show={this.state.showHideInstitutionAdd}>
           <Modal.Header>
             <Modal.Title id="contained-modal-title-vcenter">
               <h5>Add New Institution</h5>
@@ -165,7 +191,11 @@ class addNewInstitution extends React.Component {
                   <Button
                     className="btn-primary"
                     type="submit"
-                    defaultValue={i.id}
+                    defaultValue={i}
+                    onClick={() => {
+                      this.getSingleDataWithID(i.id);
+                      this.handleModalShowHideToUpdate(i.id);
+                    }}
                   >
                     Update
                   </Button>
@@ -183,6 +213,110 @@ class addNewInstitution extends React.Component {
     );
   };
 
+  // handle the modal of update institution
+  handleModalShowHideToUpdate(id) {
+    this.setState({
+      showHideInstitutionUpdate: !this.state.showHideInstitutionUpdate,
+    });
+  }
+
+  //Get a single data with the ID from allData array
+  getSingleDataWithID(id) {
+    this.state.allData.forEach((e) => {
+      if (e.id === id) {
+        console.log(e);
+        this.setState({ institutionDataWithID: e });
+        console.log(this.state.institutionDataWithID.institutionAddress);
+      }
+    });
+  }
+
+  // modal form for update
+  InstitutionUpdate = () => {
+    return (
+      <div>
+        <Modal show={this.state.showHideInstitutionUpdate}>
+          <Modal.Header>
+            <Modal.Title id="contained-modal-title-vcenter">
+              <h5>Add New Institution</h5>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form className="col-lg-6 offset-lg-3">
+              <Form.Group className="mb-3">
+                <Form.Label htmlFor="institutionName">
+                  Institution Name:
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  size="sm"
+                  name="institutionName"
+                  defaultValue={
+                    this.state.institutionDataWithID.institutionName
+                  }
+                  placeholder="Enter Institution Name"
+                  onChange={(e) => this.handleChange(e)}
+                  required
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3">
+                <Form.Label htmlFor="institutionAddress">
+                  Institution Address:
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  size="sm"
+                  name="institutionAddress"
+                  defaultValue={
+                    this.state.institutionDataWithID.institutionAddress
+                  }
+                  placeholder="Enter Institution Address"
+                  onChange={(e) => this.handleChange(e)}
+                  required
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3">
+                <Form.Label htmlFor="institutionPhone">
+                  Institution Phone:
+                </Form.Label>
+                <Form.Control
+                  type="tel"
+                  size="sm"
+                  name="institutionPhone"
+                  defaultValue={
+                    this.state.institutionDataWithID.institutionPhone
+                  }
+                  placeholder="Enter Institution Address"
+                  onChange={(e) => this.handleChange(e)}
+                  required
+                />
+              </Form.Group>
+            </Form>
+            <Modal.Footer>
+              <Button
+                variant="outline-dark"
+                onClick={() => this.handleModalShowHideToUpdate()}
+              >
+                Close
+              </Button>
+              {"  "}
+              <Button
+                className="btn btn-primary"
+                type="submit"
+                onClick={(e) => this.onFormSubmitUpdate(e)}
+              >
+                Submit
+              </Button>
+            </Modal.Footer>
+          </Modal.Body>
+        </Modal>
+      </div>
+    );
+  };
+
+  // All components render
   render() {
     return (
       <div className="body">
@@ -190,6 +324,7 @@ class addNewInstitution extends React.Component {
         <this.InstitutionAddForm />
         <br />
         <this.InstitutionTable />
+        <this.InstitutionUpdate />
       </div>
     );
   }

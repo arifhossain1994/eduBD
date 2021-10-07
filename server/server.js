@@ -59,6 +59,22 @@ app.post("/manageInstitution", function (req, res) {
     }
   );
 });
+
+app.post("/manageInstitution/update?", function (req, res) {
+  const institutionName = req.body.institutionName;
+  const institutionAddress = req.body.institutionAddress;
+  const institutionPhone = req.body.institutionPhone;
+  const id = req.body.id;
+  db.query(
+    `update ${database}.${institutiontable} set institutionName = ?, institutionAddress = ?, institutionPhone = ? where id= ?`,
+    [institutionName, institutionAddress, institutionPhone, id],
+    function (err, result) {
+      console.log(institutionName);
+      if (err) console.log(err);
+      res.send("Successfully Updated institution");
+    }
+  );
+});
 // Get all from institution table
 app.get("/manageInstitution", (req, res) => {
   db.query(`select * from ${database}.${institutiontable};`, (err, result) => {
@@ -68,17 +84,6 @@ app.get("/manageInstitution", (req, res) => {
     res.send(result);
   });
 });
-
-app.get("/manageInstitution/id=${id}", (req, res) => {
-  db.query(`select * from ${database}.${institutiontable} where id = ${id};`, (err, result) => {
-    if (err) {
-      res.send(err);
-    }
-    res.send(result);
-  });
-});
-
-
 
 app.listen(port, () => {
   console.log(`App server now listening to port ${port}`);
