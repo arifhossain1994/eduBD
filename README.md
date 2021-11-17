@@ -1,6 +1,19 @@
 # Getting Started eduBD React app
 
-This project is a educational platform for making a connection between institutes and students. This uses React, JS, SQL. 
+This project is a educational platform for making a connection between institutions and students. This uses Node, React, JS, SQL.
+
+## How to setup the project
+
+Download and Install [nodeJS](https://nodejs.org/en/download/)
+
+Install node from the terminal with `npm install`
+
+## How to run the project locally
+
+1. Change location with `cd server`
+2. Start the server with command `node server.js`
+3. Change location with `../client`
+4. Start the app with command `npm start`
 
 ## Available Scripts
 
