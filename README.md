@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Getting Started eduBD React app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a educational platform for making a connection between institutes and students. This uses React, JS, SQL. 
 
 ## Available Scripts
 
